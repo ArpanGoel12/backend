@@ -8,7 +8,8 @@ import HotelRoute from "./Routes/Hotels.js";
 import UsersRoute from "./Routes/Users.js";
 import RoomsRoute from "./Routes/Rooms.js";
 import cookieParser from "cookie-parser";
- 
+import cors from 'cors';
+
 dotenv.config();
 
 const app= express();
@@ -30,7 +31,16 @@ console.log(error);
 mongoose.connection.on("disconnected",()=>{
     console.log("discconected");
 });
-
+app.use(cors());
+app.use(function(req,res,next){
+    res.header("Access-Control-Allow-Origin","*");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin,XX-Resquested-With, Content-Type,Accept,Authorization"
+    );
+    res.header('Access-Control-Allow-Methods' , 'GET,PUT,PATCH,POST,DELETE,OPTIONS');
+    next();
+});
 app.use("/hotels",HotelRoute);
 app.use("/auth",AuthRoute);
 app.use("/rooms",RoomsRoute);
@@ -39,11 +49,11 @@ app.use("/rooms",RoomsRoute);
     res.send("hello");
  });
 
+const port=process.env.PORT||4000;
 
 
 
-
-app.listen(process.env.PORT||4000,()=>{
+app.listen(4000,()=>{
     connectnetwork();
     console.log("connection sucessful");
 });
