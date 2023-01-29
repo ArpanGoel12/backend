@@ -9,7 +9,7 @@ import {
   getHotels,
   updateHotel,
 } from "../controllers/Hotel.js";
-import Hotel from "../models/Hotel.js";
+import Hotel from "../Models/Hotel.js";
 import {verifyAdmin,verifyUser} from "../utils/verifyToken.js"
 const router = express.Router();
 
